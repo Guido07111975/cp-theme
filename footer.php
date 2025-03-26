@@ -53,7 +53,7 @@
 		<div class="cplegal">
 			<div class="cpcopyright">
 				<?php /* translators: 1: year, 2: site title. */ ?>
-				<p><?php printf( esc_html( '&copy; %1$s %2$s.', 'the-classicpress-theme' ), esc_html( gmdate( 'Y' ) ), esc_html( get_bloginfo( 'name' ) ) ); ?> <?php esc_html_e( 'All Rights Reserved.', 'the-classicpress-theme' ); ?></p>
+				<p><?php printf( esc_html( '&copy; %1$s %2$s.' ), esc_html( gmdate( 'Y' ) ), esc_html( get_bloginfo( 'name' ) ) ); ?> <?php esc_html_e( 'All Rights Reserved.', 'the-classicpress-theme' ); ?></p>
 			</div>
 			<div class="cppolicy">
 				<?php if ( ! empty( get_privacy_policy_url() ) ) { ?>
