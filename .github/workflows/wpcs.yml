@@ -1,17 +1,30 @@
-name: WPCS check
+name: ClassicPress Directory Coding Standard checks.
 
-on: push
+on: [pull_request, push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   phpcs:
-      name: WPCS
+      name: CPCS
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
-        - name: VIPCS check
+        - name: CPCS get rules
+          run: |
+            wget -O phpcs.xml https://raw.githubusercontent.com/ClassicPress/ClassicPress-Coding-Standards/main/phpcs.xml
+            sed -i '/^\t<!-- start config -->.*/a\
+              <file>.</file>
+              ' phpcs.xml
+            sed -i '/MY_DOMAIN/ s//the-classicpress-theme/' phpcs.xml
+            mv phpcs.xml phpcs.xml.dist
+        - name: CPCS checks
           uses: 10up/wpcs-action@stable
           with:
-            standard: 'WordPress'
+            use_local_config: 'true'
+            enable_warnings: 'true'
             extra_args: '--report-json=./phpcs.json'
         - name: Update summary
           run: |
